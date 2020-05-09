@@ -10,6 +10,7 @@ const app = express()
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 // Set up express to use a fixed folder for all the static contents.
+const port = process.env.PORT || 3000
 app.use(express.static(path.join(__dirname ,'../webcontent')))
 hbs.registerPartials(path.join(__dirname, '../templates/partials'))
 // Set up express to use 'handlebars' as 'view engine' to process dynamic web content.
@@ -56,7 +57,7 @@ app.get('/weather', (req, res)=>{
                     })
                 }else{
                     res.send({
-                        forecast: "It is "+temperature + " degrees out. But feels like " + feelslike + " degrees.There is "+precip+" % chance of rain today." ,
+                        forecast: "It is "+temperature + " degrees out. But feels like " + feelslike + " degrees. There is "+precip+" % chance of rain today." ,
                         location: locationData.place
                     })
                     }
@@ -78,7 +79,7 @@ app.get('*', (req, res)=>{
     })
 })
 
-app.listen(3000, ()=>{
+app.listen(port, ()=>{
     console.log('Server is up and running..')
 })
 
